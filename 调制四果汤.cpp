@@ -81,7 +81,7 @@ int main()
 			mask |= (1 << (c - 'A'));  //将字符转换为对应的位掩码,不管输入字符的顺序
 		}
 
-		for (int j = num_states - 1; j >= 0; --j) {  //一定要倒序遍历
+		for (int j = num_states - 1; j >= 0; --j) {  //一定要倒序遍历,因为所有可能污染 dp[S] 的状态 S_prev (满足 S_prev | mask = S) 都比 S 小，而我们在倒序遍历中还没有访问到它们。
 			if (dp[j] != INF) {
 				int next_state = j | mask;  //或运算把元素包含进来 
 				dp[next_state] = min(dp[next_state], dp[j] + w); //更新状态的最小值
